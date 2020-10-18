@@ -16,7 +16,7 @@ micronaut {
 }
 
 dependencies {
-    implementation project(':utilities')
+    implementation project(':infra')
 
     implementation "io.micronaut.kotlin:micronaut-kotlin-runtime"
     implementation "io.micronaut:micronaut-runtime"
