@@ -3,9 +3,32 @@
  */
 package com.example.app
 
+import com.example.utilities.BarUtils
 import com.example.utilities.StringUtils
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.runtime.Micronaut.*
 
-fun main() {
-    val tokens = StringUtils.split(MessageUtils.getMessage())
-    println(StringUtils.join(tokens))
+fun main(args: Array<String>) {
+    build()
+        .args(*args)
+        .packages("com.example")
+        .start()
+}
+
+@Controller("/")
+class FooController(
+    private val m: MessageUtils
+) {
+    @Get
+    fun foo(): String {
+        val tokens = StringUtils.split(MessageUtils.getMessage())
+        return StringUtils.join(tokens) + m.foo()
+    }
+}
+
+@Controller("bar")
+class BarController {
+    @Get
+    fun bar() = "baba!"
 }

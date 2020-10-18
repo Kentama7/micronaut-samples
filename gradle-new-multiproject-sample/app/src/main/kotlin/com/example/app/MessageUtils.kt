@@ -3,8 +3,16 @@
  */
 package com.example.app
 
-class MessageUtils {
+import com.example.utilities.BarUtils
+import javax.inject.Singleton
+
+@Singleton
+class MessageUtils(
+    private val barUtils: BarUtils
+) {
     companion object {
         fun getMessage(): String = "Hello      World!"
     }
+
+    fun foo() = "fooo!" + barUtils.bar()
 }

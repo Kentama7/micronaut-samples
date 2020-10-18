@@ -9,3 +9,9 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
 }
+
+dependencies {
+
+    implementation 'io.micronaut:micronaut-inject:2.1.1'
+    kapt 'io.micronaut:micronaut-inject-java:2.1.1'
+}
