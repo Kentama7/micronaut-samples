@@ -7,7 +7,7 @@
         <option name="micronaut.processing.annotations" value="com.example.*" />
         <option name="micronaut.processing.group" value="com.example" />
         <option name="micronaut.processing.incremental" value="true" />
-        <option name="micronaut.processing.module" value="first-app" />
+        <option name="micronaut.processing.module" value="thymeleaf" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut/micronaut-inject-java/2.1.0/a77bac075477649571052ac3c9861bd5b165ccf/micronaut-inject-java-2.1.0.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.micronaut/micronaut-validation/2.1.0/6eb39ee6b53b363eaf3d7c9b3bac3003173be301/micronaut-validation-2.1.0.jar" />
@@ -29,8 +29,8 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.4.10/6229be3465805c99db1142ad75e6c6ddeac0b04c/kotlin-stdlib-common-1.4.10.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
         </processorPath>
-        <module name="first-app.test" />
-        <module name="first-app.main" />
+        <module name="thymeleaf.test" />
+        <module name="thymeleaf.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
