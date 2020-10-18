@@ -8,4 +8,7 @@ plugins {
 
 dependencies {
     api project(':list')
+
+    compile 'joda-time:joda-time:2.10.6'
+
 }
