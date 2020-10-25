@@ -5,7 +5,10 @@
 plugins {
     // Apply the common convention plugin for shared build configuration between library and application projects.
     id 'com.example.kotlin-common-conventions'
+    id 'io.micronaut.application'
+    id 'com.github.johnrengelman.shadow'
+}
 
-    // Apply the application plugin to add support for building a CLI application in Java.
-    id 'application'
+dependencies {
+    runtimeOnly 'ch.qos.logback:logback-classic'
 }

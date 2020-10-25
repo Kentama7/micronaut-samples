@@ -6,11 +6,23 @@ plugins {
     id 'com.example.kotlin-application-conventions'
 }
 
+version "0.1"
+group "com.example"
+
+micronaut {
+    runtime "netty"
+    testRuntime "junit5"
+    processing {
+        incremental true
+        annotations "com.example.*"
+    }
+}
+
 dependencies {
-    // implementation project(':utilities')
+     runtimeOnly project(':presentation')
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.example.app.AppKt'
+    mainClass = 'com.example.app.ApplicationKt'
 }

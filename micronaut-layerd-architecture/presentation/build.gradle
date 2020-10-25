@@ -5,3 +5,8 @@
 plugins {
     id 'com.example.kotlin-library-conventions'
 }
+
+dependencies {
+    implementation project(":application")
+    implementation 'io.micronaut:micronaut-http-client'
+}
