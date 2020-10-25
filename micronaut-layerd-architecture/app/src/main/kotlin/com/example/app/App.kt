@@ -3,9 +3,6 @@
  */
 package com.example.app
 
-import com.example.utilities.StringUtils
-
 fun main() {
-    val tokens = StringUtils.split(MessageUtils.getMessage())
-    println(StringUtils.join(tokens))
+    println("Hello")
 }
