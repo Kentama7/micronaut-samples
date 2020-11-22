@@ -1,0 +1,19 @@
+plugins {
+    id 'com.example.kotlin-library-conventions'
+    id "org.flywaydb.flyway" version "7.2.1"
+}
+
+dependencies {
+    runtimeOnly "org.postgresql:postgresql:42.2.14"
+}
+
+flyway {
+    driver = 'org.postgresql.Driver'
+    url = 'jdbc:postgresql://localhost:5432/postgres'
+    user = 'postgres'
+    password = 'password'
+    schemas = ['public']
+    locations = ['classpath:db/migration']
+}
+flywayMigrate.dependsOn classes
+flywayClean.dependsOn classes

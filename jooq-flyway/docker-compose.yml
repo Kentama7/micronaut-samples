@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  db:
+    image: library/postgres:12.5-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
