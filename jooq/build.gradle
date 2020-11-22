@@ -1,19 +1,35 @@
 plugins {
-    id 'com.example.kotlin-library-conventions'
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
     id 'nu.studer.jooq' version '5.2'
 }
 
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    implementation 'org.jooq:jooq-codegen'
-    implementation 'org.jooq:jooq-meta'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'org.jooq:jooq-meta-extensions'
     jooqGenerator 'org.postgresql:postgresql:42.2.14'
     jooqGenerator 'org.jooq:jooq-meta-extensions'
 }
 
+compileKotlin {
+    kotlinOptions.jvmTarget = "11"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "11"
+}
+
+
 jooq {
-    version = '3.14.3'
-    edition = nu.studer.gradle.jooq.JooqEdition.OSS
+    version = '3.14.3'  // default (can be omitted)
+    edition = nu.studer.gradle.jooq.JooqEdition.OSS  // default (can be omitted)
 
     configurations {
         main {  // name of the jOOQ configuration
@@ -21,27 +37,25 @@ jooq {
 
             generationTool {
                 logging = org.jooq.meta.jaxb.Logging.WARN
-                jdbc {
-                    driver = 'org.postgresql.Driver'
-                    url = 'jdbc:postgresql://localhost:5432/postgres'
-                    user = 'postgres'
-                    password = 'password'
-                }
+//                jdbc {
+//                    driver = 'org.postgresql.Driver'
+//                    url = 'jdbc:postgresql://localhost:5432/postgres'
+//                    user = 'postgres'
+//                    password = 'password'
+//                }
                 generator {
                     name = 'org.jooq.codegen.DefaultGenerator'
                     database {
-                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        name = 'rg.jooq.meta.extensions.ddl.DDLDatabase'
                         inputSchema = 'public'
-                        forcedTypes {
-                            forcedType {
-                                name = 'varchar'
-                                includeExpression = '.*'
-                                includeTypes = 'JSONB?'
+                        properties {
+                            property {
+                                key = 'sort'
+                                value = 'flyway'
                             }
-                            forcedType {
-                                name = 'varchar'
-                                includeExpression = '.*'
-                                includeTypes = 'INET'
+                            property {
+                                key = 'scripts'
+                                value = 'classpath:db/migration'
                             }
                         }
                     }
