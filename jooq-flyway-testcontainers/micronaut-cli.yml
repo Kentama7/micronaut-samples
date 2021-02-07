@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.example
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: gradle
+features: [ annotation-api, app-name, flyway, gradle, http-client, jdbc-hikari, jooq, junit, kotlin, kotlin-application, logback, netty-server, postgres, readme, shade, testcontainers, yaml ]
