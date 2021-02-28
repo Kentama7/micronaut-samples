@@ -5,6 +5,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "6.1.0"
     id("io.micronaut.application") version "1.3.3"
     id('nu.studer.jooq') version '5.2'
+    id "org.flywaydb.flyway" version "7.5.4"
 }
 
 version = "0.1"
@@ -41,6 +42,8 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
+
+    implementation 'io.micronaut.data:micronaut-data-tx'
 
 //    implementation 'org.jooq:jooq-meta:3.14.7'
 //    implementation 'org.jooq:jooq-meta-extensions:3.14.7'
@@ -154,29 +157,62 @@ tasks {
 //}
 
 dependencies {
-    jooqGenerator 'org.jooq:jooq-meta-extensions'
+    jooqGenerator 'org.postgresql:postgresql:42.2.14'
 }
 jooq {
+    version = '3.14.7'  // default (can be omitted)
+    edition = nu.studer.gradle.jooq.JooqEdition.OSS  // default (can be omitted)
+
     configurations {
-        main {
+        main {  // name of the jOOQ configuration
+            generateSchemaSourceOnCompilation = true  // default (can be omitted)
+
             generationTool {
                 logging = org.jooq.meta.jaxb.Logging.WARN
+                jdbc {
+                    driver = 'org.postgresql.Driver'
+                    url = 'jdbc:postgresql://localhost:5432/postgres'
+                    user = 'postgres'
+                    password = 'password'
+                }
                 generator {
+                    name = 'org.jooq.codegen.DefaultGenerator'
                     database {
-                        name = 'org.jooq.meta.extensions.ddl.DDLDatabase'
-                        properties {
-                            property {
-                                key = 'scripts'
-                                value = 'src/test/resources/db/migration/**'
+                        name = 'org.jooq.meta.postgres.PostgresDatabase'
+                        inputSchema = 'public'
+                        forcedTypes {
+                            forcedType {
+                                name = 'varchar'
+                                includeExpression = '.*'
+                                includeTypes = 'JSONB?'
                             }
-                            property {
-                                key = 'sort'
-                                value = 'flyway'
+                            forcedType {
+                                name = 'varchar'
+                                includeExpression = '.*'
+                                includeTypes = 'INET'
                             }
                         }
                     }
+                    generate {
+                        deprecated = false
+                        records = true
+                        immutablePojos = true
+                        fluentSetters = true
+                    }
+                    target {
+                        packageName = 'nu.studer.sample'
+                        directory = 'build/generated-src/jooq/main'  // default (can be omitted)
+                    }
+                    strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
                 }
             }
         }
     }
+}
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/postgres'
+    user = 'postgres'
+    password = 'password'
+    schemas = ['public']
 }
